@@ -14,6 +14,12 @@
     </head>
     <body>
         <select>
+            <%
+            /* Ejecutar Comando carga Cuentas
+                out.println(<option>NumeroCuenta</option>)
+            */
+            
+            %>
             <option>Atletico de Madrid</option>
             <option>Betis</option>
             <option>FC. Barcelona</option>
