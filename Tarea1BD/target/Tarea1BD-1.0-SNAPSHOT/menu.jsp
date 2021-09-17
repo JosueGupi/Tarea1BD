@@ -15,31 +15,15 @@
     
     <body>
         <h1 id="titulo" >Bienvenido usuario</h1>
-        <div class="content-select">
-	<select>
-		<option>Beneficiario 1</option>
-		<option>Beneficiario 2</option>
-		<option>Beneficiario 3</option>
-	</select>
-	<i></i>
-        </div>
-        &nbsp
-        &nbsp
-        <form action ="editarBene.jsp"/>
+        <form action ="menuBene.jsp"/>
 
-            <input class= "boton" type="submit" value="Editar beneficiario">
+            <input class= "boton" type="submit" value="Administrar beneficiarios">
 
         </form>
         &nbsp
-        <form action ="agregarBene.jsp"/>
+        <form action ="menuCuentas.jsp"/>
 
-            <input class= "boton" type="submit" value="Agregar beneficiario">
-
-        </form>
-        &nbsp
-        <form action ="borrar.jsp"/>
-
-            <input class= "boton" type="submit" value="Borrar beneficiario">
+            <input class= "boton" type="submit" value="Consultar cuentas">
 
         </form>
     </body>
