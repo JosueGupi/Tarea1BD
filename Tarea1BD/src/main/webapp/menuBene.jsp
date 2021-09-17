@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <h1 id="titulo" >Beneficiarios asociados</h1>
         <div class="content-select">
 	<select>
 		<option>Beneficiario 1</option>

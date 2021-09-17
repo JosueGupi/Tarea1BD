@@ -15,15 +15,19 @@
     
     <body>
         <h1 id="titulo" >Bienvenido usuario</h1>
+        <div class="content-select">
+	<select>
+		<option>Cuenta 1</option>
+		<option>Cuenta 2</option>
+		<option>Cuenta 3</option>
+	</select>
+	<i></i>
+        </div>
+        &nbsp
+        &nbsp
         <form action ="menuBene.jsp"/>
 
-            <input class= "boton" type="submit" value="Administrar beneficiarios">
-
-        </form>
-        &nbsp
-        <form action ="menuCuentas.jsp"/>
-
-            <input class= "boton" type="submit" value="Consultar cuentas">
+            <input class= "boton" type="submit" value="Ver beneficiarios">
 
         </form>
     </body>
