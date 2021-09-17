@@ -12,19 +12,35 @@
         <title>Menu</title>
         <link rel="stylesheet" href="style.css">
     </head>
+    
     <body>
-        <select>
-            <%
-            /* Ejecutar Comando carga Cuentas
-                out.println(<option>NumeroCuenta</option>)
-            */
-            
-            %>
-            <option>Atletico de Madrid</option>
-            <option>Betis</option>
-            <option>FC. Barcelona</option>
-            <option>Real Madrid</option>
-            <option>Zaragoza</option>
-        </select>
+        <h1 id="titulo" >Bienvenido usuario</h1>
+        <div class="content-select">
+	<select>
+		<option>Beneficiario 1</option>
+		<option>Beneficiario 2</option>
+		<option>Beneficiario 3</option>
+	</select>
+	<i></i>
+        </div>
+        &nbsp
+        &nbsp
+        <form action ="editarBene.jsp"/>
+
+            <input class= "boton" type="submit" value="Editar beneficiario">
+
+        </form>
+        &nbsp
+        <form action ="agregarBene.jsp"/>
+
+            <input class= "boton" type="submit" value="Agregar beneficiario">
+
+        </form>
+        &nbsp
+        <form action ="borrar.jsp"/>
+
+            <input class= "boton" type="submit" value="Borrar beneficiario">
+
+        </form>
     </body>
 </html>

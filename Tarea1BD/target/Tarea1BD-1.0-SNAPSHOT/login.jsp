@@ -16,7 +16,7 @@
         <%
             String user = request.getParameter("usuario");
             String password = request.getParameter("contraseña");
-            if(user.equals("Gupi") && password.equals("admin"))
+            if(user.equals("sa") && password.equals("hoal"))
                 response.sendRedirect("menu.jsp");
             out.println("<p>Usuario No Registrado <a href='index.html'>Intente de nuevo</a></p>");
         %>
