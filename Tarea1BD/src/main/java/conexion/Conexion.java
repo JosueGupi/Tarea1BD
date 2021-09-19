@@ -6,26 +6,38 @@
 package conexion;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  *
  * @author Josue
  */
 public class Conexion {
-    public static Connection getConexion(){
-            String conexionUrl = "jdbc:sqlserver://localhost:1433;"
-                    + "database=master;"
+    private static final String CONEXIONURL = "jdbc:sqlserver://localhost:1433;"
+                    + "database=PruebaTarea1;"
                     + "user=sa;"
-                    + "password=admin123;"
+                    + "password=ben10gupi;"
                     + "loginTimeout=30;";
+    public static Connection getConexion(){
+            
            
             try {
-                Connection con = DriverManager.getConnection(conexionUrl);
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Connection con = DriverManager.getConnection(CONEXIONURL);
+                System.out.println("SI SE CONECTO");
                 return con;
             } catch (SQLException ex) {
                 System.out.println(ex.toString());
+                System.out.println("EN LA PRIMERA");
                 return null;
-            }
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ex.toString());
+                System.out.println("EN LA SEGUNDA");
+                return null;
+        }  
     }
+    
 }
 

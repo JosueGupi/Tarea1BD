@@ -4,6 +4,10 @@
     Author     : Josue
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="conexion.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,18 +19,31 @@
     
     <body>
         <h1 id="titulo" >Bienvenido usuario</h1>
+        
         <div class="content-select">
-	<select>
-		<option>Cuenta 1</option>
-		<option>Cuenta 2</option>
-		<option>Cuenta 3</option>
+        <form action ="menuBene.jsp"/>
+	<select name = "NumeroCuentas">
+		<option>Sin seleccionar...</option>
+		<%
+                    int idCuenta = (int)request.getAttribute("IdCuenta");
+                    String select = "SELECT NumeroCuenta FROM dbo.Cuentas WHERE Id = ?";
+                    PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+                    sql.setInt(1, idCuenta);
+                    ResultSet resultado = sql.executeQuery();
+                    
+                    while(resultado.next()){
+                        String numeroCuenta = resultado.getString("NumeroCuenta");
+                        out.println("<option value = "+numeroCuenta+">"+numeroCuenta+"</option>");
+                    }
+                
+                %>
 	</select>
 	<i></i>
         </div>
         &nbsp
         &nbsp
-        <form action ="menuBene.jsp"/>
-
+        
+            
             <input class= "boton" type="submit" value="Ver beneficiarios">
 
         </form>
