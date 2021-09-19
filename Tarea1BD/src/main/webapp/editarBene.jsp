@@ -4,6 +4,9 @@
     Author     : oscfr
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="conexion.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,19 +19,29 @@
         <form action ="cambios.jsp"/>
             <p>Nombre: <input type="text" name="nombre" required/></p>
             <p>Porcentaje: <input type="number" min="1" max="100" name="porcentaje" required/></p>
+            <select name = "Parentezco">
             <%
-            /* 
-                Combo box parentescos
-            */
+                String NombreCedula = (String)request.getParameter("Beneficiarios2");
+                String[] partes = NombreCedula.split(" ");
+                String cedulaVieja = partes[3];
+                String NumeroCuenta = partes[4];
+                String select = "SELECT Nombre FROM dbo.Parentezcos";
+                PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+                ResultSet resultado = sql.executeQuery();
+                while(resultado.next()){
+                    out.println("<option value =\""+resultado.getString("Nombre")+" "+cedulaVieja+" "+NumeroCuenta+"\">"+resultado.getString("Nombre")+"</option>");
+                }
             %>
+            </select>
+            
             <p>Fecha de nacimiento: <input type="date" name="fecha" required/></p>
             <p>Cédula: <input type="number" name="cedula" required/></p>
             <p>Email: <input type="email" name="email" required/></p>
 
-            <p> Formato Teléfono: (123)1234 1234 </>
+            <p> Formato Teléfono: 12341234 </>
 
-            <p>Telefono 1: <input type="tel" pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" name="tel1" required/></p>
-            <p>Telefono 2: <input type="tel" pattern="\([0-9]{3}\) [0-9]{4}[ -][0-9]{4}" name="tel2" required/></p>
+            <p>Telefono 1: <input type="text" name="tel1" required/></p>
+            <p>Telefono 2: <input type="text" name="tel2" required/></p>
             
             
             <input class= "boton" type="submit" value="Guardar Cambios">

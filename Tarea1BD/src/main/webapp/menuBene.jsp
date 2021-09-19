@@ -4,6 +4,7 @@
     Author     : oscfr
 --%>
 
+<%@page import="java.util.Set"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.ResultSet"%>
@@ -21,47 +22,68 @@
         <%
             String cuenta = (String) request.getParameter("NumeroCuentas");
             out.println(cuenta);
+            
+           
+    
         %>
         <div class="content-select">
-	<select>
-		<option>Sin seleccionar</option>
-		<%
-                    String select = "EXEC SP_ObtenerBeneficiarios ?, ?";
-                    PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
-                    sql.setString(1, cuenta);
-                    sql.setInt(2, 0);
-                    ResultSet resultado = sql.executeQuery();
-                    ArrayList<Integer> IdPersonas = new ArrayList();
-                    while(resultado.next()){
-                        IdPersonas.add(resultado.getInt("IdPersona"));
-                    }
-                    ArrayList<String> Nombres = new ArrayList();
-                    
-                    for(int i= 0; i<IdPersonas.size();i++){
-                        select = "SELECT * FROM dbo.Personas WHERE Id = ?";
-                        PreparedStatement sql2 = Conexion.getConexion().prepareStatement(select);
-                        sql2.setInt(1, IdPersonas.get(i));
-                        ResultSet resultado2 = sql2.executeQuery();
-                        resultado2.next();
-                    
-                        System.out.println(resultado2.getString("Nombre")+"-"+resultado2.getString("ValorDocIdentidad"));
-                        
-                        Nombres.add(resultado2.getString("Nombre")+"-"+resultado2.getString("ValorDocIdentidad"));
-                    }
-                    for(int j = 0; j<Nombres.size(); j++){
-                        out.println("<option value = "+Nombres.get(j)+">"+Nombres.get(j)+"</option>");
-                    }
-                %>
-	</select>
+            &nbsp
+            &nbsp
+            <form action ="borrar.jsp"/>
+                    <select name = "Beneficiarios">
+                        <option>Sin seleccionar</option>
+                        <%
+                           
+                            String select = "EXEC SP_ObtenerBeneficiarios ?, ?";
+                            PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
+                            sql.setString(1, cuenta);
+                            sql.setInt(2, 0);
+
+                            ResultSet resultado = sql.executeQuery();
+                            ArrayList<Integer> IdPersonas = new ArrayList();
+                            while(resultado.next()){
+                                IdPersonas.add(resultado.getInt("IdPersona"));
+                            }
+                            ArrayList<String> Nombres = new ArrayList();
+
+                            for(int i= 0; i<IdPersonas.size();i++){
+                                select = "SELECT * FROM dbo.Personas WHERE Id = ?";
+                                PreparedStatement sql2 = Conexion.getConexion().prepareStatement(select);
+                                sql2.setInt(1, IdPersonas.get(i));
+                                ResultSet resultado2 = sql2.executeQuery();
+                                resultado2.next();
+
+
+                                Nombres.add(resultado2.getString("Nombre")+" "+resultado2.getString("ValorDocIdentidad"));
+                            }
+                            for(int j = 0; j<Nombres.size(); j++){
+                                
+                                out.println("<option value = \""+Nombres.get(j)+" "+cuenta+"\">"+Nombres.get(j)+"</option>");
+                            }
+                        %>
+                    </select>
+                <input class= "boton" type="submit" value="Borrar beneficiario">
+            </form>
 	<i></i>
-        </div>
         &nbsp
         &nbsp
         <form action ="editarBene.jsp"/>
+        
+            <select name = "Beneficiarios2">
+                <option>Sin seleccionar</option>
+                <%
+
+                    for(int j = 0; j<Nombres.size(); j++){
+                        out.println("<option value = \""+Nombres.get(j)+" "+cuenta+"\">"+Nombres.get(j)+"</option>");
+                    }
+                %>
+            </select>
+        
 
             <input class= "boton" type="submit" value="Editar beneficiario">
 
         </form>
+        &nbsp
         &nbsp
         <form action ="agregarBene.jsp"/>
 
@@ -69,10 +91,10 @@
 
         </form>
         &nbsp
-        <form action ="borrar.jsp"/>
+        
 
-            <input class= "boton" type="submit" value="Borrar beneficiario">
-
-        </form>
+            
+            
+        </div>
     </body>
 </html>
