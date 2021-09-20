@@ -20,7 +20,7 @@
         <%
             try{
                 String NombreCedula = (String)request.getParameter("Beneficiarios");
-            
+                System.out.println(NombreCedula);
                 String[] partes = NombreCedula.split(" ");
                 String cedula = partes[3];
                 String cuenta = partes[4];

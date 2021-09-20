@@ -23,8 +23,8 @@
             <%
                 String NombreCedula = (String)request.getParameter("Beneficiarios2");
                 String[] partes = NombreCedula.split(" ");
-                String cedulaVieja = partes[3];
-                String NumeroCuenta = partes[4];
+                String cedulaVieja = partes[1];
+                String NumeroCuenta = partes[2];
                 String select = "SELECT Nombre FROM dbo.Parentezcos";
                 PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
                 ResultSet resultado = sql.executeQuery();

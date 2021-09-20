@@ -4,6 +4,7 @@
     Author     : oscfr
 --%>
 
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="conexion.Conexion"%>
@@ -19,13 +20,14 @@
         <%
             try{
                 String datos = (String)request.getParameter("Parentezco");
+                System.out.println(datos);
                 String[] partes = datos.split(" ");
                 String parentezco = partes[0];
-                String cuenta = partes[2];
+                String cuenta = partes[1];
                 String nombre = request.getParameter("nombre");
                 int porcentaje =Integer.parseInt(request.getParameter("porcentaje"));
                 String date = request.getParameter("fecha");
-
+                int tipoDoc = Integer.parseInt(request.getParameter("TipoDocIdentidad"));
                 String cedula =request.getParameter("cedula");
                 String email = request.getParameter("email");
                 String tele1 = request.getParameter("tel1");
@@ -39,25 +41,32 @@
                 int idCuenta = resultado.getInt("Id");
 
                 try{
-                    select = "EXEC SP_ActualizarBeneficiario ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                    select = "EXEC SP_InsertarBeneficiario ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     PreparedStatement sql2 = Conexion.getConexion().prepareStatement(select);
-                    sql2.setString(1, nombre);
-                    sql2.setInt(2, porcentaje);
-                    sql2.setString(3,parentezco);
-                    sql2.setString(4,date);
-                    sql2.setString(5,cedula);
-                    sql2.setString(6, email);
-                    sql2.setString(7, tele1);
-                    sql2.setString(8, tele2);
-                    sql2.setString(9, cedulaVieja);
+                    sql2.setInt(1, tipoDoc);
+                    sql2.setString(2, nombre);
+                    sql2.setInt(3, porcentaje);
+                    sql2.setString(4,parentezco);
+                    sql2.setString(5,date);
+                    sql2.setString(6,cedula);
+                    sql2.setString(7, email);
+                    sql2.setString(8, tele1);
+                    sql2.setString(9, tele2);
                     sql2.setInt(10,idCuenta);
                     sql2.setInt(11, 0);
                     ResultSet resultado2 = sql2.executeQuery();
+                    resultado2.next();
+                    System.out.println(resultado2.getInt(1));
+                    if(resultado2.getInt(1) == 1){
+                        response.sendRedirect("tresBeneficiarios.jsp");
+                    }
+                    request.setAttribute("IdCuenta", new Integer(idCuenta));
+                    request.getRequestDispatcher("validarPorcentaje.jsp").forward(request, response);
                     
                 }
                 catch(SQLException ex){
                     request.setAttribute("IdCuenta", new Integer(idCuenta));
-                    request.getRequestDispatcher("menu.jsp").forward(request, response);
+                    request.getRequestDispatcher("validarPorcentaje.jsp").forward(request, response);
                 }
                 
             }catch(SQLException ex){

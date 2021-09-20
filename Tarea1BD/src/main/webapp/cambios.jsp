@@ -22,7 +22,7 @@
                 String datos = (String)request.getParameter("Parentezco");
                 String[] partes = datos.split(" ");
                 String parentezco = partes[0];
-                
+                String cedulaVieja = partes[1];
                 String cuenta = partes[2];
                 String nombre = request.getParameter("nombre");
                 int porcentaje =Integer.parseInt(request.getParameter("porcentaje"));
@@ -41,16 +41,17 @@
                 int idCuenta = resultado.getInt("Id");
 
                 try{
-                    select = "EXEC SP_InsertararBeneficiario ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                    select = "EXEC SP_ActualizarBeneficiario ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     PreparedStatement sql2 = Conexion.getConexion().prepareStatement(select);
-                    sql2.setString(2, nombre);
-                    sql2.setInt(3, porcentaje);
-                    sql2.setString(4,parentezco);
-                    sql2.setString(5,date);
-                    sql2.setString(6,cedula);
-                    sql2.setString(7, email);
-                    sql2.setString(8, tele1);
-                    sql2.setString(9, tele2);
+                    sql2.setString(1, nombre);
+                    sql2.setInt(2, porcentaje);
+                    sql2.setString(3,parentezco);
+                    sql2.setString(4,date);
+                    sql2.setString(5,cedula);
+                    sql2.setString(6, email);
+                    sql2.setString(7, tele1);
+                    sql2.setString(8, tele2);
+                    sql2.setString(9, cedulaVieja);
                     sql2.setInt(10,idCuenta);
                     sql2.setInt(11, 0);
                     ResultSet resultado2 = sql2.executeQuery();
@@ -58,7 +59,7 @@
                 }
                 catch(SQLException ex){
                     request.setAttribute("IdCuenta", new Integer(idCuenta));
-                    request.getRequestDispatcher("menu.jsp").forward(request, response);
+                    request.getRequestDispatcher("validarPorcentaje.jsp").forward(request, response);
                 }
                 
             }catch(SQLException ex){

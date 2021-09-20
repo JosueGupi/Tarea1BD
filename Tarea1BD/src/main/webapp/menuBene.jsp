@@ -23,8 +23,6 @@
             String cuenta = (String) request.getParameter("NumeroCuentas");
             out.println(cuenta);
             
-           
-    
         %>
         <div class="content-select">
             &nbsp
@@ -86,7 +84,9 @@
         &nbsp
         &nbsp
         <form action ="agregarBene.jsp"/>
-
+        <%
+            out.println("<input type='hidden' name='cuenta' value="+cuenta+">");
+        %>
             <input class= "boton" type="submit" value="Agregar beneficiario">
 
         </form>

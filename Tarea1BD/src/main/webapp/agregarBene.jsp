@@ -21,15 +21,14 @@
             <p>Porcentaje: <input type="number" min="1" max="100" name="porcentaje" required/></p>
             <select name = "Parentezco">
             <%
-                String NombreCedula = (String)request.getParameter("Beneficiarios2");
-                String[] partes = NombreCedula.split(" ");
-                String cedulaVieja = partes[3];
-                String NumeroCuenta = partes[4];
+                
+                String NumeroCuenta = request.getParameter("cuenta");
+                System.out.println(NumeroCuenta);
                 String select = "SELECT Nombre FROM dbo.Parentezcos";
                 PreparedStatement sql = Conexion.getConexion().prepareStatement(select);
                 ResultSet resultado = sql.executeQuery();
                 while(resultado.next()){
-                    out.println("<option value =\""+resultado.getString("Nombre")+" "+cedulaVieja+" "+NumeroCuenta+"\">"+resultado.getString("Nombre")+"</option>");
+                    out.println("<option value =\""+resultado.getString("Nombre")+" "+NumeroCuenta+"\">"+resultado.getString("Nombre")+"</option>");
                 }
             %>
             </select>
