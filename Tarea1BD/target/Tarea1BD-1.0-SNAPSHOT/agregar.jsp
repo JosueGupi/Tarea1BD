@@ -60,9 +60,10 @@
                     if(resultado2.getInt(1) == 1){
                         response.sendRedirect("tresBeneficiarios.jsp");
                     }
-                    request.setAttribute("IdCuenta", new Integer(idCuenta));
-                    request.getRequestDispatcher("validarPorcentaje.jsp").forward(request, response);
-                    
+                    else{
+                        request.setAttribute("IdCuenta", new Integer(idCuenta));
+                        request.getRequestDispatcher("validarPorcentaje.jsp").forward(request, response);
+                    }
                 }
                 catch(SQLException ex){
                     request.setAttribute("IdCuenta", new Integer(idCuenta));
